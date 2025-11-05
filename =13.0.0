@@ -1,0 +1,2 @@
+Requirement already satisfied: pyarrow in /venv/vagen/lib/python3.10/site-packages (11.0.0)
+Requirement already satisfied: numpy>=1.16.6 in /venv/vagen/lib/python3.10/site-packages (from pyarrow) (1.24.4)
