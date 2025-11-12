@@ -7,4 +7,4 @@ env1:
         grounding_reward_weight: 100
         worldmodeling_reward_weight: 100
     train_size: 10000  
-    test_size: 48
+    test_size: 2

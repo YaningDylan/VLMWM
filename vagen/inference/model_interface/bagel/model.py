@@ -78,8 +78,8 @@ class BAGELModelInterface(BaseModelInterface):
         
         # Step 1: Load configurations
         logger.info("Loading model configurations...")
-        from modeling.bagel import Qwen2Config, SiglipVisionConfig, BagelConfig
-        from modeling.autoencoder import load_ae
+        from .modeling.bagel import Qwen2Config, SiglipVisionConfig, BagelConfig
+        from .modeling.autoencoder import load_ae
         
         llm_config = Qwen2Config.from_json_file(
             os.path.join(self.model_path, "llm_config.json")
@@ -113,7 +113,7 @@ class BAGELModelInterface(BaseModelInterface):
         
         # Step 3: Initialize empty model structure
         logger.info("Creating model structure...")
-        from modeling.bagel import Qwen2ForCausalLM, SiglipVisionModel, Bagel
+        from .modeling.bagel import Qwen2ForCausalLM, SiglipVisionModel, Bagel
         
         init_empty_weights = self._accelerate_modules['init_empty_weights']
         with init_empty_weights():
@@ -216,8 +216,8 @@ class BAGELModelInterface(BaseModelInterface):
         
         # Step 6: Initialize tokenizer
         logger.info("Initializing tokenizer...")
-        from modeling.qwen2 import Qwen2Tokenizer
-        from data.data_utils import add_special_tokens
+        from .modeling.qwen2 import Qwen2Tokenizer
+        from .data.data_utils import add_special_tokens
         
         tokenizer = Qwen2Tokenizer.from_pretrained(self.model_path)
         tokenizer, new_token_ids, _ = add_special_tokens(tokenizer)
@@ -227,14 +227,14 @@ class BAGELModelInterface(BaseModelInterface):
         
         # Step 7: Setup transforms
         logger.info("Setting up image transforms...")
-        from data.transforms import ImageTransform
+        from .data.transforms import ImageTransform
         
         self.vae_transform = ImageTransform(1024, 512, 16)
         self.vit_transform = ImageTransform(980, 224, 14)
         
         # Step 8: Create inferencer
         logger.info("Creating InterleaveInferencer...")
-        from inferencer import InterleaveInferencer
+        from .inferencer import InterleaveInferencer
         
         self.inferencer = InterleaveInferencer(
             model=self.model,
